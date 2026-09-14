@@ -45,7 +45,9 @@ jobs:
           $ffmpegVersion = "8.0.1"
           $url = "https://www.gyan.dev/ffmpeg/builds/packages/ffmpeg-$ffmpegVersion-essentials_build.zip"
           Write-Host "Downloading FFmpeg $ffmpegVersion..."
-          Invoke-WebRequest `-Uri $url ` -OutFile "ffmpeg.zip"
+          Invoke-WebRequest `
+            -Uri $url `
+            -OutFile "ffmpeg.zip"
 
       # ----------------------------------------------------------
       # Extract FFmpeg
@@ -53,7 +55,9 @@ jobs:
       - name: Extract FFmpeg
         shell: pwsh
         run: |
-          Expand-Archive `-Path "ffmpeg.zip" ` -DestinationPath "ffmpeg-download"
+          Expand-Archive `
+            -Path "ffmpeg.zip" `
+            -DestinationPath "ffmpeg-download"
 
       # ----------------------------------------------------------
       # Locate FFmpeg Executables
