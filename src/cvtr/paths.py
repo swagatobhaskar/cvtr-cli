@@ -1,17 +1,47 @@
 from pathlib import Path
+import shutil
 import sys
 
 def application_dir() -> Path:
-    if getattrs(sys, "frozen", False):
-        # Running from PyInstaller
+    """Return the directory containing the application."""
+
+    if getattr(sys, "frozen", False):
+        # Running from a PyInstaller executable
         return Path(sys.executable).resolve().parent
         
     # Running from source
     return Path(__file__).resolve().parents[2]
 
+
 def ffmpeg_path() -> Path:
-    return application_dir() / "ffmpeg" / "ffmpeg.exe"
+    """Return the path to the FFmpeg executable."""
+
+    if getattr(sys, "frozen", False):
+        return application_dir() / "ffmpeg" / "ffmpeg.exe"
+
+    ffmpeg = shutil.which("ffmpeg")
+    
+    if ffmpeg is None:
+        raise FileNotFoundError(
+            "FFmpeg was not found. Please install FFmpeg and make sure "
+            "it is available on PATH."
+        )
+
+    return Path(ffmpeg)
+
     
 def ffprobe_path() -> Path:
-    return application_dir() / "ffmpeg" / "ffprobe.exe"
+    """Return the path to the FFprobe executable."""
 
+    if getattr(sys, "frozen", False):
+        return application_dir() / "ffmpeg" / "ffprobe.exe"
+
+    ffprobe = shutil.which("ffprobe")
+
+    if ffprobe is None:
+        raise FileNotFoundError(
+            "FFprobe was not found. Please install FFmpeg and make sure "
+            "FFprobe is available on PATH."
+        )
+
+    return Path(ffprobe)

@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cvtr"
+version = "0.1.0"
+description = "Cartoon Video Transcoder CLI"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+
+# Choose ONE of these standard SPDX identifiers for the 'license' field:
+# license = "MIT"                # If using MIT
+# license = "Apache-2.0"         # If using Apache 2.0
+# license = "LGPL-3.0-or-later"  # If using LGPL v3
+
+# Point tools to your physical LICENSE file
+license-files = ["LICENSE"]
+
+authors = [
+    { name = "Swagato Bhaskar", email = "bhaskarswagato@gmail.com" }
+]
+
+dependencies = [
+    # "typer", or click, rich, etc. for your CLI
+]
+
+[project.scripts]
+cvtr = "cvtr.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]     # cvtr as the CLI entry point.
+

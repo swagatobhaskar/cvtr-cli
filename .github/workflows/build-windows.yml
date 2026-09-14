@@ -1,0 +1,42 @@
+name: Build CLI Tool
+
+# cvtr: cartoon video transcoder
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest   # Or windows-latest depending on target OS
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+
+    - name: Install Dependencies and pyInstaller
+      run: |
+        python -m pip install --upgrade pip
+        pip install . pyinstaller
+
+    - name: Download FFmpeg binaries for CI build
+      run: |
+        # Example step to fetch static ffmpeg binaries for packaging
+        mkdir -p bin
+        # curl -L https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz -o ffmpeg.tar.xz
+        # tar -xf ffmpeg.tar.xz --strip-components=1 -C bin/ --wildcards '*/ffmpeg' '*/ffprobe'
+
+    - name: Build Executable with pyInstaller
+      run: |
+        pyinstaller --onedir --add-binary "bin/ffmpeg:bin" --add-binary "bin/ffprobe:bin" src/cvtr/cli.py
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: cvtr-binary
+        path: dist/cli
+
