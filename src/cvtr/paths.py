@@ -2,6 +2,19 @@ from pathlib import Path
 import shutil
 import sys
 
+# paths.py determines exactly where the GitHub Actions workflow needs to place FFmpeg.
+# My frozen application expects:
+
+# application_dir()
+# └── ffmpeg/
+#     ├── ffmpeg.exe
+#     └── ffprobe.exe
+
+# because you have: return application_dir() / "ffmpeg" / "ffmpeg.exe"
+# and: return application_dir() / "ffmpeg" / "ffprobe.exe"
+
+# So use the following workflow in GitHub Actions.
+
 def application_dir() -> Path:
     """Return the directory containing the application."""
 
