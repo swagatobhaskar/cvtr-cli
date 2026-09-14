@@ -42,9 +42,8 @@ jobs:
       - name: Download FFmpeg
         shell: pwsh
         run: |
-          $ffmpegVersion = "8.0.1"
-          $url = "https://www.gyan.dev/ffmpeg/builds/packages/ffmpeg-$ffmpegVersion-essentials_build.zip"
-          Write-Host "Downloading FFmpeg $ffmpegVersion..."
+          $url = "https://www.gyan.dev/ffmpeg/builds/ffmpeg-release-essentials.zip"
+          Write-Host "Downloading latest FFmpeg release..."
           Invoke-WebRequest `
             -Uri $url `
             -OutFile "ffmpeg.zip"
