@@ -47,6 +47,20 @@ Available Options
 - -o, --output (optional): Path where the transcoded video should be saved.
 - --probe, Run ffprobe on the selected video.
 
+An example with `--help`: `python3 -m src.cvtr.cli --help`
+    
+```
+usage: python3 -m src.cvtr.cli [-h] [-i INPUT] [-o OUTPUT] [--probe]
+
+Transcode video using FFmpeg
+
+options:
+-h, --help           show this help message and exit
+-i, --input INPUT    Input video file
+-o, --output OUTPUT  Output video file
+--probe              Probe input video with FFprobe
+```
+
 ## Building the Executable (PyInstaller)
 To compile the script and bundled binaries into a single standalone executable:
     `pyinstaller cvtr.spec`
