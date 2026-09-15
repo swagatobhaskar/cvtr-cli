@@ -1,8 +1,6 @@
 import os
 from pathlib import Path
 
-from pyinstaller.utils.hooks import collect_submodules
-
 # ----------------------------------------------------------
 # Project paths and required environment variables
 # ----------------------------------------------------------
