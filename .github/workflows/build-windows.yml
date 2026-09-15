@@ -117,14 +117,16 @@ jobs:
           pyinstaller `
             --clean `
             --noconfirm `
-            --onedir `
-            --name cvtr `
-            --console `
-            --contents-directory . `
-            --paths src `
-            --add-binary "$env:FFMPEG_PATH;ffmpeg" `
-            --add-binary "$env:FFPROBE_PATH;ffmpeg" `
-            build_entry.py
+            cvtr.spec
+        
+        # --onedir `
+        # --name cvtr `
+        # --console `
+        # --contents-directory . `
+        # --paths src `
+        # --add-binary "$env:FFMPEG_PATH;ffmpeg" `
+        # --add-binary "$env:FFPROBE_PATH;ffmpeg" `
+        # build_entry.py
 
       # ----------------------------------------------------------
       # Verify Expected Package Structure
