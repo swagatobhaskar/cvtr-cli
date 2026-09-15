@@ -173,7 +173,7 @@ jobs:
             -DestinationPath "cvtr-windows-x64.zip"
 
       # ----------------------------------------------------------
-      # Create Windows Package ZIP
+      # Create GitHub Release
       # ----------------------------------------------------------
       - name: Create GitHub Release
         if: startsWith(github.ref, 'refs/tags/v')
