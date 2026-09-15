@@ -115,6 +115,7 @@ jobs:
             --onedir `
             --name cvtr `
             --console `
+            --contents-directory . `
             --paths src `
             --add-binary "$env:FFMPEG_PATH;ffmpeg" `
             --add-binary "$env:FFPROBE_PATH;ffmpeg" `
