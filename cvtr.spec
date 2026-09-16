@@ -39,8 +39,8 @@ a = Analysis(
     pathex=[
         str(PROJECT_ROOT / "src"),
     ],
-    binaries=ffmpeg_binaries,
-    datas=[],
+    binaries=[],
+    datas=ffmpeg_binaries,
     hiddenimports=[],
     hookspath=[],
     hooksconfig=[],
