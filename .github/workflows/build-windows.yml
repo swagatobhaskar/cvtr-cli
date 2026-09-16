@@ -114,6 +114,9 @@ jobs:
       - name: Build CVTR with PyInstaller
         shell: pwsh
         run: |
+          Remove-Item -Recurse -Force "build" -ErrorAction SilentlyContinue
+          Remove-Item -Recurse -Force "dist" -ErrorAction SilentlyContinue
+
           pyinstaller `
             --clean `
             --noconfirm `
@@ -127,6 +130,16 @@ jobs:
         # --add-binary "$env:FFMPEG_PATH;ffmpeg" `
         # --add-binary "$env:FFPROBE_PATH;ffmpeg" `
         # build_entry.py
+
+      # ----------------------------------------------------------
+      # Inspect Package
+      # ----------------------------------------------------------
+      
+      - name: Inspect package
+        shell: pwsh
+        run: |
+          Get-ChildItem -Path "dist\cvtr" -Recurse |
+            Select-Object FullName, Length
 
       # ----------------------------------------------------------
       # Verify Expected Package Structure
