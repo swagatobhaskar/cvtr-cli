@@ -26,8 +26,9 @@ if not FFPROBE_PATH:
 # Bundle FFmpeg and FFprobe with the application.
 ffmpeg_binaries = [
     (FFMPEG_PATH, "ffmpeg"),
-    (FFPROBE_PATH, "ffprobe"),
+    (FFPROBE_PATH, "ffmpeg"),
 ]
+    # (FFPROBE_PATH, "ffprobe"),
 
 # ----------------------------------------------------------
 # Analysis
