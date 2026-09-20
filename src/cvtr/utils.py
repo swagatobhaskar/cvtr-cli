@@ -4,7 +4,7 @@ from fractions import Fraction
 import subprocess
 import platform
 
-from .paths import ffmpeg_path
+from .paths import ffmpeg_path, ffprobe_path
 
 TARGET_HEIGHTS = [
     720,
@@ -47,7 +47,8 @@ BITRATE_LADDER = {
 def probe_video(input_path: str):
 
     cmd = [
-        "ffprobe",
+        # "ffprobe",
+        str(ffprobe_path()),
         # Hide noisy logs
         "-v", "quiet",
         # Output JSON
