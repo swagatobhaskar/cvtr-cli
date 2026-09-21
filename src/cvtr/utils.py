@@ -73,7 +73,15 @@ def probe_video(input_path: str):
         if s["codec_type"] == "video"
     )
 
+    available_codecs = [ codec["codec_type"] for codec in data["streams"] ]
+
+    # if 'audio' not in available_codecs:
+    if 'audio' not in available_codecs or 'video' not in available_codecs:
+        # print("No audio codec found in the video stream...")
+        raise RuntimeError("Either audio or video codec was not found in the video stream...")
+
     return {
+        "available_codecs": [ codec["codec_type"] for codec in data["streams"] ],
         "width": video_stream["width"],
         "height": video_stream["height"],
         "codec": video_stream["codec_name"],
@@ -278,14 +286,17 @@ def build_ffmpeg_command(
 
         "-hls_master_name",
         "master.m3u8",
+        # str(output_dir / "master.m3u8"),
 
         # Init segments
         "-init_seg_name",
         "init_$RepresentationID$.mp4",
+        # str(output_dir / "init_$RepresentationID$.mp4"),
 
         # Media fragments
         "-media_seg_name",
         "chunk_$RepresentationID$_$Number%05d$.m4s",
+        # str(output_dir / "chunk_$RepresentationID$_$Number%05d$.m4s"),
 
         "-adaptation_sets",
         # "id=0,streams=0,1,2 id=1,streams=3",   # this was for 720, 480, 360
@@ -304,7 +315,7 @@ def get_default_output_path(file_name: str) -> Path:
         return home / "Videos" / "cvtr" / file_name
 
     if platform.system() == "Windows":
-        return home / "my_videos" / "cvtr" / file_name
+        return home / "Videos" / "cvtr" / file_name
 
     else:
         raise RuntimeError(f"Unsupported operating system: {platform.system()}")
