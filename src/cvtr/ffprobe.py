@@ -26,11 +26,11 @@ def run_probe(path: Path) -> dict:
 
     # Find first video stream
     video_stream = next(
-        s for s in data["streams"]
-        if s["codec_type"] == "video"
+        s for s in data["streams"] if s["codec_type"] == "video"
     )
 
     return {
+        "available_codecs": [ codec["codec_type"] for codec in data["streams"] ],
         "width": video_stream["width"],
         "height": video_stream["height"],
         "codec": video_stream["codec_name"],
