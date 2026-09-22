@@ -1,15 +1,9 @@
-# Video Transcoding CLI Tool
+# Cartoon Video Transcoder CLI Tool
 
-An internal command-line tool built in Python for handling video transcoding tasks using bundled FFmpeg and FFprobe binaries.
-
----
-
-## Prerequisites
-
-* **Python 3.10+** (if running from source)
-* **FFmpeg / FFprobe** (already bundled in the compiled executable; required locally only if running via Python script).
+A command-line tool built in Python argparse for handling cartoon video transcoding tasks using bundled FFmpeg and FFprobe binaries.
 
 ---
+
 
 ## Installation & Setup
 
@@ -30,8 +24,7 @@ An internal command-line tool built in Python for handling video transcoding tas
     source venv/bin/activate  # On Windows: venv\Scripts\activate
     pip install .
     ```
-    
-3. Ensure FFmpeg is installed in the system for local execution.
+
 
 ## Run in Development
 Running `ffprobe`: Navigate to the root `cvtr` directory and run `python3 -m src.cvtr.cli --input ~/Videos/my-movie.mp4 --probe`.
