@@ -44,14 +44,13 @@ jobs:
       # ----------------------------------------------------------
       # Download Windows FFmpeg
       # ----------------------------------------------------------
-      # $url = "https://www.gyan.dev/ffmpeg/builds/ffmpeg-release-essentials.zip"
-      # Write-Host "Downloading latest FFmpeg release..."
+      # $url = "https://www.gyan.dev/ffmpeg/builds/packages/ffmpeg-8.1.2-essentials_build.zip"
+      # Write-Host "Downloading FFmpeg release 8.1.2 ..."
       - name: Download FFmpeg
         shell: pwsh
         run: |
-          
-          $url = "https://www.gyan.dev/ffmpeg/builds/packages/ffmpeg-8.1.2-essentials_build.zip"
-          Write-Host "Downloading FFmpeg release 8.1.2 ..."
+          $url = "https://www.gyan.dev/ffmpeg/builds/ffmpeg-release-essentials.zip"
+          Write-Host "Downloading latest FFmpeg release for Windows..."
           Invoke-WebRequest `
             -Uri $url `
             -OutFile "ffmpeg.zip"
