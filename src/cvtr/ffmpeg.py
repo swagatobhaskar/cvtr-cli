@@ -4,11 +4,7 @@ from .utils import (
     generate_renditions, create_output_directories
 )
 
-# from .path import ffmpeg_path
-
-def run_transcode(input_file, output_dir):
-    # ffmpeg = ffmpeg_path()
-    
+def run_transcode(input_file, output_dir):    
     probe_result = probe_video(input_file)
     renditions = generate_renditions(probe_result["height"])
 
@@ -20,7 +16,8 @@ def run_transcode(input_file, output_dir):
     dash_dir = output_dir / "dash"
 
     cmd = build_ffmpeg_command(
-        input_file=str(input_file),
+        # input_file=str(input_file),
+        input_file=str(input_file.resolve()),  # input path must be resolved to an absolute path too
         output_dir=dash_dir,
         renditions=renditions,
         fps=probe_result["fps"]
@@ -42,6 +39,15 @@ def run_transcode(input_file, output_dir):
         # capture_output=True is essentially shorthand for:
         # stdout=subprocess.PIPE,
         # stderr=subprocess.PIPE,
+
+        # Relative on purpose: we set cwd=dash_dir when running this command,
+        # so every output (manifest, init segments, media chunks, HLS master)
+        # resolves the same way via the OS instead of FFmpeg's own path
+        # parsing. FFmpeg's directory-inference from an absolute output path
+        # is inconsistent between platforms (it works on Linux but the
+        # relative init/media/hls_master names silently fall back to the
+        # process's CWD on Windows), so don't rely on it.
+        cwd=str(dash_dir),
     )
     # This is preferable to: `subprocess.run(["ffmpeg", ...])`
     # because the latter depends on FFmpeg being installed and available in PATH.

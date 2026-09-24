@@ -286,23 +286,30 @@ def build_ffmpeg_command(
 
         "-hls_master_name",
         "master.m3u8",
-        # str(output_dir / "master.m3u8"),
 
         # Init segments
         "-init_seg_name",
         "init_$RepresentationID$.mp4",
-        # str(output_dir / "init_$RepresentationID$.mp4"),
 
         # Media fragments
         "-media_seg_name",
         "chunk_$RepresentationID$_$Number%05d$.m4s",
-        # str(output_dir / "chunk_$RepresentationID$_$Number%05d$.m4s"),
 
         "-adaptation_sets",
         # "id=0,streams=0,1,2 id=1,streams=3",   # this was for 720, 480, 360
         "id=0,streams=0,1 id=1,streams=2",
 
-        str(output_dir / "manifest.mpd")
+
+        # Relative on purpose: we set cwd=dash_dir when running this command,
+        # so every output (manifest, init segments, media chunks, HLS master)
+        # resolves the same way via the OS instead of FFmpeg's own path
+        # parsing. FFmpeg's directory-inference from an absolute output path
+        # is inconsistent between platforms (it works on Linux but the
+        # relative init/media/hls_master names silently fall back to the
+        # process's CWD on Windows), so don't rely on it.
+
+        # str(output_dir / "manifest.mpd")
+        "manifest.mpd"
     ]
 
     return cmd
