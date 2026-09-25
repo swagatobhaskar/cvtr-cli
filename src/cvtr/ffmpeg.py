@@ -6,6 +6,14 @@ from .utils import (
 
 def run_transcode(input_file, output_dir):    
     probe_result = probe_video(input_file)
+
+    # store the probe result in a JSON file in the output directory
+    output_dir.mkdir(parents=True, exist_ok=True)
+    probe_result_file = output_dir / "probe_result.json"
+    with open(probe_result_file, "w") as f:
+        import json
+        json.dump(probe_result, f, indent=2)
+        
     renditions = generate_renditions(probe_result["height"])
 
     if not renditions:
